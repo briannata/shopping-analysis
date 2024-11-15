@@ -1,1 +1,11 @@
 # Introduction
+
+We are exploring shopping habits in the United States, specifically purchases on Amazon from 2018 to 2023. Amazon is the largest online retailer so analyzing its shopping trends gives us insight into people’s needs and wants.
+
+We are interested in exploring how the COVID-19 pandemic influenced online shopping trends, particularly how much people spent and what products were the most popular. This dataset has data from before, during and after the pandemic, allowing us to get a better understanding and comparison about how the pandemic affected people’s shopping habits.
+
+We also want to analyze when is the most popular time to conduct online shopping, especially the date and time. We are particularly interested in seeing whether these trends correlate with major holidays, such as Christmas, or major sale events, like Black Friday and Prime Day.
+
+As for general trends, we want to investigate what are the most popular products and categories for both the whole United States, and for each state. We also want to explore whether demographics (gender, race, sexual orientation, and age) have any correlation with shopping habits. We are also interested in exploring whether income, substance abuse, and education affects people’s spending habits and has any correlation with the kinds of products they purchase on Amazon. It would also be intriguing to see if personal situations, such as having diabetes or using a wheelchair, also affects an individual’s online shopping.
+
+In general, we are excited to dive into US Amazon trends and explore what variables have correlations with a person’s shopping habits.
