@@ -14,7 +14,17 @@
     "href": "data.html",
     "title": "2  Data",
     "section": "",
-    "text": "2.1 Description",
+    "text": "2.1 Description\nIdentify one or more data sources (see II. D. above) that you propose to draw on for the project. For each, describe how the data are collected and by whom. Describe the format of the data, the frequency of updates, dimensions, and any other relevant information. Note any issues / problems with the data, either known or that you discover. Explain how you plan to import the data. Carefully document your sources with links to the precise data sources that you used. If that is not possible (for example if your data is not available online, then explain that clearly.) (suggested: 1/2 page)\nThere are two datasets, amazon_purchases.csv and survey.csv, from the Harvard paper, “Open e-commerce 1.0: Five years of crowdsourced U.S. Amazon purchase histories with user demographics.” The first dataset was a longitudinal collection of purchase data from 5027 Amazon.com users recruited from the online research platforms, Prolific and CloudResearch. If the user decided to share their data with the Harvard researchers, the data was included in the amazon_purchases.csv dataset. If the user then chose to answer an additional survey about their demographics and additional questions, they were compensated for their participation in this study. All participants had to be 18 years or older, U.S. resident and English speaker, and have an active Amazon account. The data collectors were researchers Alex Berke, Robert Mahari, Sandy Pentland, Kent Larson, and Dana Calacci, affiliated with Harvard, MIT and Penn State. This was a one time study so the data collection is finalized so there are not any updates.\nThe amazon_purchases dataset is a csv file with 1048576 rows and 7 columns while the survey dataset is 5028 rows and 23 columns. There is a common column of participant id, so we will join the two datasets together to get the full picture of the participant’s amazon purchases and survey responses, which will result in a dataset with a total of 1048576 rows and 30 columns. There is missing data for some of the shipping locations, item names (title) etc. which we will have to decide how to deal with that. However, for one of the survey questions there are blank responses to represent non applicable, so we need to distinguish this difference somehow.\nWe will import the data by downloading the csv that was included in the paper. We also have access to their github in case that is useful.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
+    ]
+  },
+  {
+    "objectID": "data.html#description",
+    "href": "data.html#description",
+    "title": "2  Data",
+    "section": "",
+    "text": "2.1.1 Data sources:\nDataset Source\nTheir github",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
     ]
