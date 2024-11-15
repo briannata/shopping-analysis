@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "Amazon Shopping Analysis"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Sarah Firestone (saf2224)
+    - Brianna Ta (bht2118)
+  repo-url: https://github.com/Ybriannata/shopping-analysis
   date: today
   page-footer:
     right: |
