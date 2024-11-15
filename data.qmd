@@ -11,7 +11,8 @@ There is missing data for some of the shipping locations, item names (title) etc
 We will import the data by downloading the csv that was included in the paper. We also have access to their github in case that is useful. 
 
 ### Data sources:
-https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YGLYDY 
-Their github: https://github.com/aberke/amazon-study 
+[Dataset Source](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YGLYDY)
+
+[Their github](https://github.com/aberke/amazon-study) 
 
 ## Missing value analysis
