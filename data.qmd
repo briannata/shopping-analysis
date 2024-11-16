@@ -16,3 +16,60 @@ We will import the data by downloading the csv that was included in the paper. W
 [Their github](https://github.com/aberke/amazon-study) 
 
 ## Missing value analysis
+
+We decided to look at the missing values for the datasets separately for this step before joining them for data analysis later on.
+
+Imports
+```{r}
+library(ggplot2)
+library(readr)
+library(naniar)
+```
+
+
+Load the amazon purchases data into a dataframe
+
+```{r}
+amazon_purchases <- read_csv("data/amazon-purchases.csv")
+
+options(readr.show_col_types = FALSE)
+```
+
+See how many missing values there are in each column
+```{r}
+print("Missing values:")
+missing_values = colSums(is.na(amazon_purchases))
+print(missing_values)
+```
+
+Graph the missing values using the naniar package's vis_miss function
+```{r}
+vis_miss(amazon_purchases, warn_large_data = FALSE)  +
+  labs(
+    title = "Missing Data Visualization for Amazon Purchase Columns",
+    x = "Columns",
+    y = "Observations"
+  )
+```
+
+We chose this graph to show the patterns in the missing values in each of the columns. We noticed that observations that had one column value missing did not necessarily have missing values in other columns. There didn't seem to be a lot of overlap, and the missing values seemed to be random and have no pattern. Shipping address state, title, and category had about 5% of their data values missing, while ASIN/ISBN had less than 0.1% missing values.
+
+Graph the missing values as a simple bar graph to compare which columns have the most missing values
+```{r}
+missing = setNames(nm=c('colnames', 'missing'),stack(colSums(is.na(amazon_purchases)))[2:1])
+
+ggplot(missing, aes(x=colnames, y=missing)) + geom_bar(stat="identity") +ggtitle("Distribution of Missing Values by Column Name for Amazon Purchases") + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + xlab("Columns") + ylab("Number of Missing Values")
+```
+We noticed that shipping address state, title, and category had approximately the same amount of missing values. ASIN/ISBN had a very small amount of missing values, while the rest of the columns had no missing values.
+
+Load in the survey dataset as a dataframe
+```{r}
+survey <- read_csv("data/survey.csv")
+```
+
+Print out the missing values per column in this dataset
+```{r}
+print("Missing values:")
+print(colSums(is.na(survey)))
+```
+Q-life-changes is the only column that has missing values in this survey dataset. This question is optional, which is why we expected to see this pattern of missing values for only this column.
