@@ -6,3 +6,4 @@
 /.quarto/
 data/amazon-purchases.csv
 data/survey.csv
+data/joined-amazon-purchases.csv

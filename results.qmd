@@ -1,1 +1,10 @@
 # Results
+
+library(readr)
+purchase = read_csv("data/amazon-purchases.csv")
+survey = read_csv("data/survey.csv")
+
+# joined_df = merge(purchase, survey, by = "Survey ResponseID")
+# write.csv(joined_df, "data/joined-amazon-purchases.csv")
+
+joined_df = read_csv("data/joined-amazon-purchases.csv")
