@@ -44,7 +44,7 @@
     "href": "d3graph.html",
     "title": "4  Interactive graph",
     "section": "",
-    "text": "Age Education Gender Income Race",
+    "text": "Age Education Gender Income Race\n\n\n\n\n\nWe used a Python script to group and parse the data so that we could create our grouped bar chart, showing the top five Amazon product categories for each of the different demographic groups.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interactive graph</span>"
     ]
