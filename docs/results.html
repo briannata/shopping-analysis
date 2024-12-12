@@ -188,6 +188,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#distribution-of-users-total-spending-on-amazon" id="toc-distribution-of-users-total-spending-on-amazon" class="nav-link" data-scroll-target="#distribution-of-users-total-spending-on-amazon"><span class="header-section-number">3.3</span> Distribution of User’s Total Spending on Amazon</a></li>
   <li><a href="#alluvial-diagram-of-age-amazon-category-and-income-for-2023" id="toc-alluvial-diagram-of-age-amazon-category-and-income-for-2023" class="nav-link" data-scroll-target="#alluvial-diagram-of-age-amazon-category-and-income-for-2023"><span class="header-section-number">3.4</span> Alluvial Diagram of Age, Amazon Category, and Income for 2023</a></li>
   <li><a href="#mosiac-pairs-plot-of-gender-purchases-per-week-and-education" id="toc-mosiac-pairs-plot-of-gender-purchases-per-week-and-education" class="nav-link" data-scroll-target="#mosiac-pairs-plot-of-gender-purchases-per-week-and-education"><span class="header-section-number">3.5</span> Mosiac Pairs Plot of Gender, Purchases Per Week, and Education</a></li>
+  <li><a href="#line-graph-of-total-spent-on-amazon-products-each-month" id="toc-line-graph-of-total-spent-on-amazon-products-each-month" class="nav-link" data-scroll-target="#line-graph-of-total-spent-on-amazon-products-each-month"><span class="header-section-number">3.6</span> Line Graph of Total Spent on Amazon Products Each Month</a></li>
+  <li><a href="#boxplot-of-price-of-purchases-based-on-substance-use-habits" id="toc-boxplot-of-price-of-purchases-based-on-substance-use-habits" class="nav-link" data-scroll-target="#boxplot-of-price-of-purchases-based-on-substance-use-habits"><span class="header-section-number">3.7</span> Boxplot of Price of Purchases Based on Substance Use Habits</a></li>
+  <li><a href="#heatmap-of-how-often-a-user-purchases-each-month-vs-price" id="toc-heatmap-of-how-often-a-user-purchases-each-month-vs-price" class="nav-link" data-scroll-target="#heatmap-of-how-often-a-user-purchases-each-month-vs-price"><span class="header-section-number">3.8</span> Heatmap of How Often a User Purchases Each Month vs Price</a></li>
+  <li><a href="#ridgeline-plot-of-purchase-price-based-on-education" id="toc-ridgeline-plot-of-purchase-price-based-on-education" class="nav-link" data-scroll-target="#ridgeline-plot-of-purchase-price-based-on-education"><span class="header-section-number">3.9</span> Ridgeline Plot of Purchase Price Based on Education</a></li>
+  <li><a href="#purchase-price-per-unit-faceted-by-before-during-or-after-covid" id="toc-purchase-price-per-unit-faceted-by-before-during-or-after-covid" class="nav-link" data-scroll-target="#purchase-price-per-unit-faceted-by-before-during-or-after-covid"><span class="header-section-number">3.10</span> Purchase Price Per Unit Faceted by Before, During, or After COVID</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/briannata/shopping-analysis/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/briannata/shopping-analysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -223,7 +228,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># joined_df = merge(purchase, survey, by = "Survey ResponseID")</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(joined_df, "data/joined-amazon-purchases.csv")</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>joined_df <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"data/joined-amazon-purchases.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>joined_df <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"data/joined-amazon-purchases.csv"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">=</span> joined_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="state-map-of-total-amazon-purchases" class="level2" data-number="3.1">
@@ -265,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We used a US state map to visualize which states made the most Amazon purchases and which had the least from 2018 to 2023. California had the greatest amount of Amazon purchases by a large margin while Texas had the second highest. We were not surprised that California had the most purchases, but we were surprised that Texas was second. A lot of the midwest states, such as Montana, North Dakota, South Dakota, and Wyoming had the least amount of Amazon purchases.</p>
+<p>We used a US state map to visualize which states made the most Amazon purchases and which had the least from 2018 to 2023. California had the greatest amount of Amazon purchases by a large margin, while Texas had the second highest. We were not surprised that California had the most purchases, but we were surprised that Texas was second. Many midwest states, such as Montana, North Dakota, South Dakota, and Wyoming, had the least Amazon purchases.</p>
 </section>
 <section id="grouped-bar-chart-of-top-5-categories-per-year" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="grouped-bar-chart-of-top-5-categories-per-year"><span class="header-section-number">3.2</span> Grouped Bar Chart of Top 5 Categories Per Year</h2>
@@ -324,7 +330,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This grouped bar chart shows the top purchases per year. For each year, books are consistently the top category purchased, followed by pet food. However, in 2022 and 2023, gift cards were no longer considered a top category and instead, medicine appeared. People also bought more nutritional supplements than shirts until 2021 and 2022, and then in 2023 nutritional supplements were more popular again.</p>
+<p>This grouped bar chart shows the top purchases per year. For each year, books are consistently the top category purchased, followed by pet food. However, in 2022 and 2023, gift cards were no longer considered a top category and instead, medicine appeared.</p>
+<p>People also bought more nutritional supplements than shirts until 2021 and 2022, and then in 2023 nutritional supplements were more popular again.</p>
 </section>
 <section id="distribution-of-users-total-spending-on-amazon" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="distribution-of-users-total-spending-on-amazon"><span class="header-section-number">3.3</span> Distribution of User’s Total Spending on Amazon</h2>
@@ -457,6 +464,194 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>To see if the variables have a strong association we used a mosaic plot. Gender and education levels were strongly associated. However, for our topic we are more interested in the association with how often the user purchases from Amazon a month (shopping frequency). When looking at all three variables together, they were not strongly associated. Then if we just look at gender and how often the user shops on Amazon, there appears to be more of an association compared to education level and shopping frequency.</p>
+</section>
+<section id="line-graph-of-total-spent-on-amazon-products-each-month" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="line-graph-of-total-spent-on-amazon-products-each-month"><span class="header-section-number">3.6</span> Line Graph of Total Spent on Amazon Products Each Month</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lubridate'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>joined<span class="sc">$</span>date <span class="ot">=</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span>, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>),<span class="st">"%m/%Y"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>per_month <span class="ot">=</span> <span class="fu">summarise</span>(<span class="fu">group_by</span>(joined, date), <span class="st">`</span><span class="at">Total Purchase Price Per Month</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span>))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>per_month<span class="sc">$</span>new_date <span class="ot">=</span> <span class="fu">mdy</span>(<span class="fu">paste</span>(<span class="st">"01/"</span>, per_month<span class="sc">$</span>date)) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> per_month, <span class="fu">aes</span>(<span class="at">x =</span> new_date, <span class="at">y =</span> <span class="st">`</span><span class="at">Total Purchase Price Per Month</span><span class="st">`</span>, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">75</span>, <span class="at">hjust =</span> <span class="dv">1</span>))<span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-01"</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">as.Date</span>(<span class="st">"2023-05-01"</span>), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin=</span><span class="fu">as.Date</span>(<span class="st">"2020-03-01"</span>), <span class="at">xmax=</span><span class="fu">as.Date</span>(<span class="st">"2023-05-01"</span>), <span class="at">ymin=</span><span class="dv">0</span>, <span class="at">ymax=</span><span class="cn">Inf</span>), <span class="at">alpha =</span> <span class="fl">0.01</span>, <span class="at">fill =</span> <span class="st">"light blue"</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Total Spent on Amazon Products Each Month"</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%m/%Y"</span>, <span class="at">date_breaks =</span> <span class="st">"3 month"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here is a line plot to see purchase cost patterns over time. Specifically, we wanted to see if there is a change in people’s behavior relative to COVID-19, which is why the red lines signal the start and end of COVID-19 and is highlighted in blue. There does seem to be an increase in total purchase costs per month over time. It dives down in 2023, but as we stated earlier, that is due to fewer purchases recorded by the participants (and why there is only one purchase in 2024). However, with so many dates (over 5 years), we decided to zoom in, specifically during the Covid period, to see the purchase patterns more clearly, which is the other graph.</p>
+<p>Zooming into just these dates in 2021, when COVID-19 was still happening, according to the CDC, there was some oscillation and then a low point at the end of summer, which spiked up during December. This shows that each month does not have a consistent increase, and the holiday spike is apparent even when we look at the last graph with all the dates.</p>
+</section>
+<section id="boxplot-of-price-of-purchases-based-on-substance-use-habits" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="boxplot-of-price-of-purchases-based-on-substance-use-habits"><span class="header-section-number">3.7</span> Boxplot of Price of Purchases Based on Substance Use Habits</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>substance <span class="ot">=</span> <span class="fu">select</span>(joined, <span class="st">`</span><span class="at">Q-substance-use-alcohol</span><span class="st">`</span>, <span class="st">`</span><span class="at">Q-substance-use-cigarettes</span><span class="st">`</span>, <span class="st">`</span><span class="at">Q-substance-use-marijuana</span><span class="st">`</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>substance <span class="ot">=</span> <span class="fu">mutate</span>(substance, <span class="at">substance_num =</span> <span class="fu">rowSums</span>(substance <span class="sc">==</span> <span class="st">"Yes"</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>joined[<span class="st">'substance_num'</span>]<span class="ot">=</span> substance<span class="sc">$</span>substance_num</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#zoomed out</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">substance_num</span><span class="st">`</span>) ,<span class="at">y =</span> <span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span>)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Prices of Purchases based Buyers Substance Use Habits"</span>) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Substances the Buyer Uses"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A box plot was made to observe if substance use affects the price of an item a user purchases. The three possible substances that a buyer could use are alcohol, cigarettes, and/or marijuana. Initially, when plotted, the purchase price ranged from $8 to over $6,000. With this wide spread and the number of outliers, this plot is significantly spread out and it is almost impossible to see the actual boxes. However, this plot is still included to show these step as well as to show the outliers since they have an interesting pattern. People with no substance abuse had the most extreme outliers, and the highest purchase price kept decreasing the more substances the buyer used.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find outliers</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>iqr <span class="ot">=</span> <span class="fu">summary</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span>)[[<span class="st">"3rd Qu."</span>]]<span class="sc">-</span><span class="fu">summary</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span>)[[<span class="st">"1st Qu."</span>]]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>joined<span class="sc">$</span>top_coded_purchase <span class="ot">=</span> joined<span class="sc">$</span><span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#joined with outliers replaced with mean as top_coded_purchase</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">=</span> <span class="fu">mutate</span>(joined, <span class="at">top_coded_purchase =</span> <span class="fu">ifelse</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="fl">44.89</span> , <span class="fl">44.89</span>, joined<span class="sc">$</span><span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">#facet based on gender</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">=</span> <span class="fu">filter</span>(joined, <span class="st">`</span><span class="at">Q-demos-gender</span><span class="st">`</span> <span class="sc">==</span> <span class="st">'Female'</span> <span class="sc">|</span> <span class="st">`</span><span class="at">Q-demos-gender</span><span class="st">`</span> <span class="sc">==</span> <span class="st">'Male'</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">substance_num</span><span class="st">`</span>) ,<span class="at">y =</span> top_coded_purchase)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="st">`</span><span class="at">Q-demos-gender</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Prices of Purchases based Buyers Substance Use Habits"</span>) <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Number of Substances the Buyer Uses"</span>) <span class="sc">+</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Purchase Price Per Unit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To solve this readability issue and to see the actual boxes, we made the outliers the mean and got this graph. We also wanted to see if substance abuse purchase patterns were similar for males and females. It’s apparent that the median purchase price is the same across all users, no matter their gender or substance use history. However, buyers that used 3 substances bought lower-priced items compared to the rest, which was an apparent pattern for both genders. Also, females consistently bought lower-priced items than males; however, they had more outliers for the expensive items. In conclusion, since the main difference was between outliers, and we have a process to adjust for outliers so that the amount of substance abuse does not appear to impact the distribution for purchasing price per unit.</p>
+</section>
+<section id="heatmap-of-how-often-a-user-purchases-each-month-vs-price" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="heatmap-of-how-often-a-user-purchases-each-month-vs-price"><span class="header-section-number">3.8</span> Heatmap of How Often a User Purchases Each Month vs Price</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Year and how much they used amazon a month</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#replaced outliers with mean</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>joined<span class="sc">$</span>year <span class="ot">=</span> <span class="fu">format</span>(<span class="fu">as.Date</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span>, <span class="at">format=</span><span class="st">"%d/%m/%Y"</span>),<span class="st">"%Y"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">year</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span>, <span class="at">fill =</span><span class="st">`</span><span class="at">top_coded_purchase</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span> <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"white"</span>, <span class="at">high=</span><span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Yearly Relationship of How Often a User Purchases on Amazon Each Month and the Price"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"How Often a User Purchases on Amazon Each Month"</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Product Price Per Unit"</span>)) <span class="sc">+</span> </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.70</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This heatmap explores people’s buying patterns each year on Amazon. It shows how many times people purchase on Amazon per month and how much those items are. The data had some extreme outliers that made most of the plot white with some pale blue which was unreliable and didn’t tell us anything. So a solution was to change all the outliers to the mean purchase price per unit which resulted in this graph. In the heatmap, users purchased more expensive items in 2022 and 2023, and there was an increase in item prices when they bought more than 10 items per month. Please note 2024 only had 1 colored square since there was only 1 purchase in 2024. We also saw a different pattern before Covid of people buying cheaper items regardless of how often they shopped on Amazon per month and if they did purchase an expensive item it was less than 10 times a month. From this graphic, it appears that no matter how often a user shopped per month at Amazon, people were buying more expensive items towards the end of the study compared to the beginning in 2018.</p>
+</section>
+<section id="ridgeline-plot-of-purchase-price-based-on-education" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="ridgeline-plot-of-purchase-price-based-on-education"><span class="header-section-number">3.9</span> Ridgeline Plot of Purchase Price Based on Education</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggridges' was built under R version 4.4.1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">=</span> <span class="fu">filter</span>(joined, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">!=</span><span class="st">'Prefer not to say'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>labels <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Some High School or Less High School"</span>, <span class="st">"High School Diploma/GED"</span>, <span class="st">"Graduate/Professional Degree"</span>, <span class="st">"Bachelor's Degree"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Replacing outliers as mean</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">top_coded_purchase</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">axis.text.y=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">8</span>, <span class="at">angle=</span><span class="dv">30</span>, <span class="at">vjust=</span>.<span class="dv">8</span>, <span class="at">hjust=</span><span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labels) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Ridgeline Plot of Purchase Prices Based on Education Level"</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Purchase Price Per Unit"</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Education Level"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Picking joint bandwidth of 0.916</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This graph compares the distribution of multiple education levels at once and shows the modes which is why a rideline plot was selected. A similar problem happened in the boxplot where some extreme outliers pushed the rideline out to make it unreadable. So the same process was used where the outliers were replaced with the mean, which is why we see a consistent peak around 44 which was the mean (this shows that all education levels had these outliers). For all education levels, there are very similar shapes showing the majority of the products purchased on Amazon are the cheaper lower priced items. The main difference is that bachelor’s degree has a bigger dip around 18 dollars which is interesting. In conclusion, we see similar patterns with more purchases for cheaper items and peaks where the price is a factor of 5 ($10, $15 etc.) with purchases decreasing as the price increases across all levels.</p>
+</section>
+<section id="purchase-price-per-unit-faceted-by-before-during-or-after-covid" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="purchase-price-per-unit-faceted-by-before-during-or-after-covid"><span class="header-section-number">3.10</span> Purchase Price Per Unit Faceted by Before, During, or After COVID</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"forcats"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.4.2</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>joined[<span class="st">'covid_status'</span>] <span class="ot">=</span> <span class="st">'During Covid'</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">=</span> <span class="fu">mutate</span>(joined, <span class="at">covid_status =</span> <span class="fu">ifelse</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span><span class="sc">&lt;</span> <span class="st">'2020-03-01'</span> , <span class="st">'Before Covid'</span>, <span class="st">'During Covid'</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">=</span> <span class="fu">mutate</span>(joined, <span class="at">covid_status =</span> <span class="fu">ifelse</span>(joined<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span><span class="sc">&gt;=</span> <span class="st">'2023-05-11'</span> , <span class="st">'After Covid'</span>, joined<span class="sc">$</span><span class="st">`</span><span class="at">covid_status</span><span class="st">`</span>))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(<span class="at">x=</span>Quantity, <span class="at">y=</span> top_coded_purchase, <span class="at">color =</span><span class="st">`</span><span class="at">Q-demos-age</span><span class="st">`</span>)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="fu">fct_relevel</span>(joined<span class="sc">$</span>covid_status, <span class="st">"After Covid"</span>, <span class="at">after =</span> <span class="cn">Inf</span>)) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Purchase Price Per Unit Versus the quantity of Product Bought Based on Covid Time Period"</span>) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_legend</span>(<span class="at">title =</span> <span class="st">"Age"</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Purchase Price Per Unit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To show how purchasing behavior was affected by Covid we split the purchase dates into 3 categories (before, during, and after Covid). We also wanted to how age impacted a purchase’s price and quantity. We used the data where the mean replaced the purchase price outliers so the after Covid values are more readable. It’s important to note that there was less data for after Covid since the CCD stated May 11, 2023 was the last day of Covid and this study ended in 2023 with only 1 purchase from 2024. It looks like only 65 and older users bought during this time but we know this is not accurate since there are so few responses and we know that other age groups also used Amazon (they might have just not reported it or may have not bought on those specific days). So just looking at before and after Covid, there were very similar patterns. However, there seems to be more bulk buying during Covid and 25-34 year olds seem to be purchasing more, and older people are buying cheaper products. However, it’s hard to tell if this is true because the orange point may be covering some pink dots (even with the opacity feature on) and vice versa.</p>
 
 
 </section>
