@@ -1,0 +1,31 @@
+Group,Category,Value
+American Indian/Native American or Alaska Native,ABIS_BOOK,498
+American Indian/Native American or Alaska Native,PET_FOOD,264
+American Indian/Native American or Alaska Native,COFFEE,183
+American Indian/Native American or Alaska Native,SHIRT,159
+American Indian/Native American or Alaska Native,ELECTRONIC_CABLE,145
+Asian,GIFT_CARD,4166
+Asian,ABIS_BOOK,3585
+Asian,PET_FOOD,1700
+Asian,NUTRITIONAL_SUPPLEMENT,1449
+Asian,ELECTRONIC_CABLE,1279
+Black or African American,ABIS_BOOK,3553
+Black or African American,GIFT_CARD,1982
+Black or African American,SHIRT,1528
+Black or African American,NUTRITIONAL_SUPPLEMENT,1517
+Black or African American,FOOD,1397
+Native Hawaiian or Other Pacific Islander,POULTRY,63
+Native Hawaiian or Other Pacific Islander,WATER,54
+Native Hawaiian or Other Pacific Islander,SNACK_CHIP_AND_CRISP,37
+Native Hawaiian or Other Pacific Islander,ABIS_MUSIC,35
+Native Hawaiian or Other Pacific Islander,FRUIT_SNACK,35
+Other,ABIS_BOOK,1368
+Other,ELECTRONIC_CABLE,388
+Other,NUTRITIONAL_SUPPLEMENT,376
+Other,SHIRT,341
+Other,VEGETABLE,338
+White or Caucasian,ABIS_BOOK,75095
+White or Caucasian,PET_FOOD,33557
+White or Caucasian,SHIRT,23105
+White or Caucasian,NUTRITIONAL_SUPPLEMENT,21730
+White or Caucasian,GIFT_CARD,20481
