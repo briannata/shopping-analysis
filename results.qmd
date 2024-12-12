@@ -38,5 +38,50 @@ ggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) 
   geom_polygon(color = "black") +
   scale_fill_viridis_c(option = "magma", na.value = "gray", direction = -1) +
   theme_minimal() +
-  labs(title = "Total Purchases by State", fill = "Total Purchases")
+  labs(title = "Total Amazon Purchases from 2018 to 2023 by State", fill = "Total Purchases")
   
+# Graph 2
+
+library(RColorBrewer)
+
+# Convert Order Date to Date type
+purchase$`Order Date` <- as.Date(purchase$`Order Date`, format="%Y-%m-%d")
+
+# Extract Year from Order Date
+purchase$Year <- format(purchase$`Order Date`, "%Y")
+
+# Group by Year and Category to count purchases
+category_counts <- purchase %>%
+  group_by(Year, Category) %>%
+  summarise(purchases = n()) %>%
+  ungroup()
+
+# Remove 'NA' categories and filter out the year 2024
+category_counts <- category_counts %>%
+  filter(Category != "NA" & Year != "2024")
+
+# Get the top 5 most purchased categories for each year
+top_categories <- category_counts %>%
+  group_by(Year) %>%
+  top_n(5, purchases) %>%
+  ungroup()
+
+# Order categories within each year by number of purchases (tallest to shortest)
+top_categories$Category <- factor(top_categories$Category, 
+                                   levels = top_categories %>%
+                                     group_by(Year) %>%
+                                     arrange(Year, desc(purchases)) %>%
+                                     pull(Category) %>%
+                                     unique())
+
+# Choose a qualitative color palette
+palette <- brewer.pal(8, "Set2")
+
+# Create the grouped bar graph
+ggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Top 5 Most Purchased Amazon Categories by Year",
+       x = "Year", y = "Number of Purchases") +
+  scale_fill_manual(values = palette) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
