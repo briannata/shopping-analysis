@@ -1,1 +1,113 @@
-# Results
+---
+title: "results"
+editor: visual
+---
+
+Plot 1
+
+```{r}
+library(readr)
+library(ggplot2)
+library("stringr") 
+
+purchase = read_csv("~/amazon-purchases.csv")
+survey = read_csv("~/survey.csv")
+length(unique(purchase$`Shipping Address State`))
+joined = merge(purchase, survey, by = "Survey ResponseID")
+```
+
+```{r}
+joined$date = format(as.Date(joined$`Order Date`, format="%d/%m/%Y"),"%m/%Y")
+
+per_month = summarise(group_by(joined, date), `Total Purchase Price Per Month` = sum(`Purchase Price Per Unit`))
+per_month$new_date = mdy(paste("01/", per_month$date)) 
+ggplot(data = per_month, aes(x = new_date, y = `Total Purchase Price Per Month`, group = 1)) + geom_line() + geom_point() + theme(axis.text.x = element_text(angle = 75, hjust = 1))+
+  geom_vline(xintercept = as.Date("2020-03-01"), color = "red", size = 1) +
+  geom_vline(xintercept = as.Date("2023-05-01"), color = "red", size = 1) +
+  geom_rect(aes(xmin=as.Date("2020-03-01"), xmax=as.Date("2023-05-01"), ymin=0, ymax=Inf), alpha = 0.01, fill = "light blue") +
+  ggtitle("Total Spent on Amazon Products Each Month") +
+  scale_x_date(date_labels = "%m/%Y", date_breaks = "3 month")
+```
+
+Plot 2
+
+```{r}
+substance = select(joined, `Q-substance-use-alcohol`, `Q-substance-use-cigarettes`, `Q-substance-use-marijuana`)
+substance = mutate(substance, substance_num = rowSums(substance == "Yes"))
+joined['substance_num']= substance$substance_num
+
+#zoomed out
+ggplot(joined, aes(x = factor(`substance_num`) ,y = `Purchase Price Per Unit`)) + geom_boxplot() +
+  ggtitle("Prices of Purchases based Buyers Substance Use Habits") +
+  xlab("Number of Substances the Buyer Uses")
+
+```
+
+A box plot was made to observe if substance use affects the price of an item a user purchases. The three possible substances that a buyer could use are alcohol, cigarettes, and/or marijuana. Originally when plotted the purchase price ranged from \$8 to over \$6,000 with this wide of a spread and the amount of outliers this plot is extremely spread out and almost impossible to see the actual boxes. However, this plot is still included to show these steps as well as to show the outliers since they have an interesting inverse pattern. People with no substance abuse had the most extreme outliers and the maximum purchase price decreased when the number of substances a buyer used increased.
+
+```{r}
+#find outliers
+iqr = summary(joined$`Purchase Price Per Unit`)[["3rd Qu."]]-summary(joined$`Purchase Price Per Unit`)[["1st Qu."]]
+joined$top_coded_purchase = joined$`Purchase Price Per Unit`
+#joined with outliers replaced with mean as top_coded_purchase
+joined = mutate(joined, top_coded_purchase = ifelse(joined$`Purchase Price Per Unit` > 44.89 , 44.89, joined$`Purchase Price Per Unit`))
+
+#facet based on gender
+joined = filter(joined, `Q-demos-gender` == 'Female' | `Q-demos-gender` == 'Male')
+
+ggplot(joined, aes(x = factor(`substance_num`) ,y = top_coded_purchase)) + geom_boxplot() + facet_wrap(~`Q-demos-gender`) +
+  ggtitle("Prices of Purchases based Buyers Substance Use Habits") +
+  xlab("Number of Substances the Buyer Uses") + 
+  ylab("Purchase Price Per Unit")
+```
+
+To solve this readability issue and to see the actual boxes, we made the outliers the mean and got this graph. We also wanted to see if substance abuse purchase patterns were similar for males and females. The median purchase price is the same across all users no matter their gender or substance use history. However, buyers who used 3 substances bought lower-priced items compared to the rest, which was an apparent pattern for both genders. Also, females bought lower priced items than males consistently, however, they did have more outliers for the expensive items. In conclusion, since the main difference was between outliers, and we have a process to adjust for outliers, the amount of substance use does not appear to impact the distribution for purchasing price per unit.
+
+Plot 3
+
+```{r fig.width = 10, fig.height= 10}
+#Year and how much they used amazon a month
+#replaced outliers with mean
+joined$year = format(as.Date(joined$`Order Date`, format="%d/%m/%Y"),"%Y")
+ggplot(joined, aes(x = `year`, y = `Q-amazon-use-how-oft`, fill =`top_coded_purchase`)) +
+  geom_tile() + scale_fill_gradient(low="white", high="blue") +
+  ggtitle("Yearly Relationship of How Often a User Purchases on Amazon Each Month and the Price") +
+  ylab("How Often a User Purchases on Amazon Each Month") +
+  guides(color = guide_legend(title = "Product Price Per Unit")) + 
+  theme(plot.title = element_text(hjust=0.70))
+```
+
+This heatmap explores people’s buying patterns each year on Amazon. It shows how many times people purchase on Amazon per month and how much those items are. The data had some extreme outliers that made most of the plot white with some pale blue which was unreliable and didn’t tell us anything. So a solution was to change all the outliers to the mean purchase price per unit which resulted in this graph. In the heatmap, users purchased more expensive items in 2022 and 2023, and there was an increase in item prices when they bought more than 10 items per month. Please note 2024 only had 1 colored square since there was only 1 purchase in 2024. We also saw a different pattern before Covid of people buying cheaper items regardless of how often they shopped on Amazon per month and if they did purchase an expensive item it was less than 10 times a month. From this graphic, it appears that no matter how often a user shopped per month at Amazon, people were buying more expensive items towards the end of the study compared to the beginning in 2018.
+
+Plot 4
+
+```{r}
+library(ggridges)
+joined = filter(joined, `Q-demos-education`!='Prefer not to say')
+labels = c("Some High school or less High school", "High school diploma/GED", "Graduate/professional Degree", "Bachelor's Degree")
+
+#Replacing outliers as mean
+ggplot(joined, aes(x = `top_coded_purchase`, y = `Q-demos-education`)) +
+  geom_density_ridges() + theme(axis.text.y=element_text(size=8, angle=30, vjust=.8, hjust=0.8)) +
+  scale_y_discrete(labels = labels) +
+  ggtitle("Ridgeline Plot of Purchase Prices Based on Education Level") +
+  xlab("Purchase Price Per Unit") +
+  ylab("Education Level")
+```
+
+This graph compares the distribution of multiple education levels at once and shows the modes which is why a rideline plot was selected. A similar problem happened in the boxplot where some extreme outliers pushed the rideline out to make it unreadable. So the same process was used where the outliers were replaced with the mean, which is why we see a consistent peak around 44 which was the mean (this shows that all education levels had these outliers). For all education levels, there are very similar shapes showing the majority of the products purchased on Amazon are the cheaper lower priced items. The main difference is that bachelor’s degree has a bigger dip around 18 dollars which is interesting. In conclusion, we see similar patterns with more purchases for cheaper items and peaks where the price is a factor of 5 (\$10, \$15 etc.) with purchases decreasing as the price increases across all levels.
+
+Plot 5
+
+```{r}
+joined['covid_status'] = 'During Covid'
+joined = mutate(joined, covid_status = ifelse(joined$`Order Date`< '2020-03-01' , 'Before Covid', 'During Covid'))
+joined = mutate(joined, covid_status = ifelse(joined$`Order Date`>= '2023-05-11' , 'After Covid', joined$`covid_status`))
+ggplot(joined, aes(x=Quantity, y= top_coded_purchase, color =`Q-demos-age`)) + geom_point(alpha =0.5) +
+  facet_wrap(~fct_relevel(joined$covid_status, "After Covid", after = Inf)) +
+  ggtitle("Purchase Price Per Unit Versus the quantity of Product Bought Based on Covid Time Period") +
+  guides(color = guide_legend(title = "Age")) + ylab("Purchase Price Per Unit")
+
+```
+
+To show how purchasing behavior was affected by Covid we split the purchase dates into 3 categories (before, during, and after Covid). We also wanted to how age impacted a purchase's price and quantity. We used the data where the mean replaced the purchase price outliers so the after Covid values are more readable. It's important to note that there was less data for after Covid since the CCD stated May 11, 2023 was the last day of Covid and this study ended in 2023 with only 1 purchase from 2024. It looks like only 65 and older users bought during this time but we know this is not accurate since there are so few responses and we know that other age groups also used Amazon (they might have just not reported it or may have not bought on those specific days). So just looking at before and after Covid, there were very similar patterns. However, there seems to be more bulk buying during Covid and 25-34 year olds seem to be purchasing more, and older people are buying cheaper products. However, it’s hard to tell if this is true because the orange point may be covering some pink dots (even with the opacity feature on) and vice versa.
