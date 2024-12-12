@@ -30,7 +30,10 @@ function changeData(demographic) {
         groups = ["Less than $25,000", "$25,000 - $49,999", "$50,000 - $74,999", "$75,000 - $99,999", "$100,000 - $149,999", "$150,000 or more", "Prefer not to say"]
     }
     else if(demographic == "Race") {
-        groups = ['White or Caucasian', 'Black or African American', 'Asian', 'Other', 'American Indian/Native American or Alaska Native']
+        groups = ["Caucasian", "African American", "Asian", "American Indian/Native American/Alaska Native", "Other"]
+    }
+    else if(demographic == "Education") {
+        groups = ["< High school", "High school/GED", "Bachelor's", "Graduate/professional", "Prefer not to say"]
     }
   
     // Scales
