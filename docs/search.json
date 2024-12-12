@@ -44,9 +44,19 @@
     "href": "d3graph.html",
     "title": "4  Interactive graph",
     "section": "",
-    "text": "Print",
+    "text": "Age Education Gender Income Race",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interactive graph</span>"
+    ]
+  },
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "3  Results",
+    "section": "",
+    "text": "library(readr) purchase = read_csv(“data/amazon-purchases.csv”) survey = read_csv(“data/survey.csv”)\n\n4 joined_df = merge(purchase, survey, by = “Survey ResponseID”)\n\n\n5 write.csv(joined_df, “data/joined-amazon-purchases.csv”)\njoined_df = read_csv(“data/joined-amazon-purchases.csv”)\n\n\n6 Graph 1\nlibrary(dplyr) library(ggplot2) library(maps)\n\n\n7 Calculate the total number of purchases in each state\ntotal_purchases_by_state &lt;- joined_df %&gt;% group_by(Q-demos-state) %&gt;% summarise(total_purchases = n()) %&gt;% mutate(Q-demos-state = tolower(Q-demos-state)) %&gt;% arrange(desc(total_purchases))\n\n\n8 View the resulting dataframe\nprint(total_purchases_by_state)\n\n\n9 Load map data for states\nstates &lt;- map_data(“state”)\n\n\n10 Join the purchase data with map data\nstates_purchases &lt;- states %&gt;% rename(Q-demos-state = region) %&gt;% left_join(total_purchases_by_state, by = “Q-demos-state”)\n\n\n11 Plot the data on a map\nggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) + geom_polygon(color = “black”) + scale_fill_viridis_c(option = “magma”, na.value = “gray”, direction = -1) + theme_minimal() + labs(title = “Total Amazon Purchases from 2018 to 2023 by State”, fill = “Total Purchases”)\n\n\n12 Graph 2\nlibrary(RColorBrewer)\n\n\n13 Convert Order Date to Date type\npurchase\\(`Order Date` &lt;- as.Date(purchase\\)Order Date, format=“%Y-%m-%d”)\n\n\n14 Extract Year from Order Date\npurchase\\(Year &lt;- format(purchase\\)Order Date, “%Y”)\n\n\n15 Group by Year and Category to count purchases\ncategory_counts &lt;- purchase %&gt;% group_by(Year, Category) %&gt;% summarise(purchases = n()) %&gt;% ungroup()\n\n\n16 Remove ‘NA’ categories and filter out the year 2024\ncategory_counts &lt;- category_counts %&gt;% filter(Category != “NA” & Year != “2024”)\n\n\n17 Get the top 5 most purchased categories for each year\ntop_categories &lt;- category_counts %&gt;% group_by(Year) %&gt;% top_n(5, purchases) %&gt;% ungroup()\n\n\n18 Order categories within each year by number of purchases (tallest to shortest)\ntop_categories\\(Category &lt;- factor(top_categories\\)Category, levels = top_categories %&gt;% group_by(Year) %&gt;% arrange(Year, desc(purchases)) %&gt;% pull(Category) %&gt;% unique())\n\n\n19 Choose a qualitative color palette\npalette &lt;- brewer.pal(8, “Set2”)\n\n\n20 Create the grouped bar graph\nggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) + geom_bar(stat = “identity”, position = “dodge”) + labs(title = “Top 5 Most Purchased Amazon Categories by Year”, x = “Year”, y = “Number of Purchases”) + scale_fill_manual(values = palette) + theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n21 Graph 3\n\n\n22 Calculate total spending per user\nuser_spending &lt;- joined_df %&gt;% mutate(Total_Spent = Purchase Price Per Unit * Quantity) %&gt;% group_by(Survey ResponseID) %&gt;% summarise(Total_Spent_Per_User = sum(Total_Spent, na.rm = TRUE))\n\n\n23 Plot a histogram of total spending per user\nggplot(user_spending, aes(x = Total_Spent_Per_User)) + geom_histogram(binwidth = 1000, fill = “blue”, color = “black”, alpha = 0.7) + labs( title = “Distribution of Total Spending from 2018 to 2023 Per Account”, x = “Total Spending (USD)”, y = “Number of Accounts” ) + theme_minimal()",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
     ]
   }
 ]

@@ -4,11 +4,11 @@ Bachelor's degree,PET_FOOD,17586
 Bachelor's degree,NUTRITIONAL_SUPPLEMENT,12652
 Bachelor's degree,SHIRT,12231
 Bachelor's degree,GIFT_CARD,12007
-"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)",ABIS_BOOK,25950
-"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)",PET_FOOD,7647
-"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)",SHIRT,6076
-"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)",GIFT_CARD,5977
-"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)",NUTRITIONAL_SUPPLEMENT,5600
+Graduate or professional degree,ABIS_BOOK,25950
+Graduate or professional degree,PET_FOOD,7647
+Graduate or professional degree,SHIRT,6076
+Graduate or professional degree,GIFT_CARD,5977
+Graduate or professional degree,NUTRITIONAL_SUPPLEMENT,5600
 High school diploma or GED,ABIS_BOOK,21807
 High school diploma or GED,PET_FOOD,12491
 High school diploma or GED,GIFT_CARD,9168

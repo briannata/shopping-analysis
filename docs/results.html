@@ -69,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -144,8 +173,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#joined_df-mergepurchase-survey-by-survey-responseid" id="toc-joined_df-mergepurchase-survey-by-survey-responseid" class="nav-link active" data-scroll-target="#joined_df-mergepurchase-survey-by-survey-responseid"><span class="header-section-number">4</span> joined_df = merge(purchase, survey, by = “Survey ResponseID”)</a></li>
+  <li><a href="#write.csvjoined_df-datajoined-amazon-purchases.csv" id="toc-write.csvjoined_df-datajoined-amazon-purchases.csv" class="nav-link" data-scroll-target="#write.csvjoined_df-datajoined-amazon-purchases.csv"><span class="header-section-number">5</span> write.csv(joined_df, “data/joined-amazon-purchases.csv”)</a></li>
+  <li><a href="#graph-1" id="toc-graph-1" class="nav-link" data-scroll-target="#graph-1"><span class="header-section-number">6</span> Graph 1</a></li>
+  <li><a href="#calculate-the-total-number-of-purchases-in-each-state" id="toc-calculate-the-total-number-of-purchases-in-each-state" class="nav-link" data-scroll-target="#calculate-the-total-number-of-purchases-in-each-state"><span class="header-section-number">7</span> Calculate the total number of purchases in each state</a></li>
+  <li><a href="#view-the-resulting-dataframe" id="toc-view-the-resulting-dataframe" class="nav-link" data-scroll-target="#view-the-resulting-dataframe"><span class="header-section-number">8</span> View the resulting dataframe</a></li>
+  <li><a href="#load-map-data-for-states" id="toc-load-map-data-for-states" class="nav-link" data-scroll-target="#load-map-data-for-states"><span class="header-section-number">9</span> Load map data for states</a></li>
+  <li><a href="#join-the-purchase-data-with-map-data" id="toc-join-the-purchase-data-with-map-data" class="nav-link" data-scroll-target="#join-the-purchase-data-with-map-data"><span class="header-section-number">10</span> Join the purchase data with map data</a></li>
+  <li><a href="#plot-the-data-on-a-map" id="toc-plot-the-data-on-a-map" class="nav-link" data-scroll-target="#plot-the-data-on-a-map"><span class="header-section-number">11</span> Plot the data on a map</a></li>
+  <li><a href="#graph-2" id="toc-graph-2" class="nav-link" data-scroll-target="#graph-2"><span class="header-section-number">12</span> Graph 2</a></li>
+  <li><a href="#convert-order-date-to-date-type" id="toc-convert-order-date-to-date-type" class="nav-link" data-scroll-target="#convert-order-date-to-date-type"><span class="header-section-number">13</span> Convert Order Date to Date type</a></li>
+  <li><a href="#extract-year-from-order-date" id="toc-extract-year-from-order-date" class="nav-link" data-scroll-target="#extract-year-from-order-date"><span class="header-section-number">14</span> Extract Year from Order Date</a></li>
+  <li><a href="#group-by-year-and-category-to-count-purchases" id="toc-group-by-year-and-category-to-count-purchases" class="nav-link" data-scroll-target="#group-by-year-and-category-to-count-purchases"><span class="header-section-number">15</span> Group by Year and Category to count purchases</a></li>
+  <li><a href="#remove-na-categories-and-filter-out-the-year-2024" id="toc-remove-na-categories-and-filter-out-the-year-2024" class="nav-link" data-scroll-target="#remove-na-categories-and-filter-out-the-year-2024"><span class="header-section-number">16</span> Remove ‘NA’ categories and filter out the year 2024</a></li>
+  <li><a href="#get-the-top-5-most-purchased-categories-for-each-year" id="toc-get-the-top-5-most-purchased-categories-for-each-year" class="nav-link" data-scroll-target="#get-the-top-5-most-purchased-categories-for-each-year"><span class="header-section-number">17</span> Get the top 5 most purchased categories for each year</a></li>
+  <li><a href="#order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest" id="toc-order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest" class="nav-link" data-scroll-target="#order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest"><span class="header-section-number">18</span> Order categories within each year by number of purchases (tallest to shortest)</a></li>
+  <li><a href="#choose-a-qualitative-color-palette" id="toc-choose-a-qualitative-color-palette" class="nav-link" data-scroll-target="#choose-a-qualitative-color-palette"><span class="header-section-number">19</span> Choose a qualitative color palette</a></li>
+  <li><a href="#create-the-grouped-bar-graph" id="toc-create-the-grouped-bar-graph" class="nav-link" data-scroll-target="#create-the-grouped-bar-graph"><span class="header-section-number">20</span> Create the grouped bar graph</a></li>
+  <li><a href="#graph-3" id="toc-graph-3" class="nav-link" data-scroll-target="#graph-3"><span class="header-section-number">21</span> Graph 3</a></li>
+  <li><a href="#calculate-total-spending-per-user" id="toc-calculate-total-spending-per-user" class="nav-link" data-scroll-target="#calculate-total-spending-per-user"><span class="header-section-number">22</span> Calculate total spending per user</a></li>
+  <li><a href="#plot-a-histogram-of-total-spending-per-user" id="toc-plot-a-histogram-of-total-spending-per-user" class="nav-link" data-scroll-target="#plot-a-histogram-of-total-spending-per-user"><span class="header-section-number">23</span> Plot a histogram of total spending per user</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/briannata/shopping-analysis/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/briannata/shopping-analysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -169,8 +223,87 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>library(readr) purchase = read_csv(“data/amazon-purchases.csv”) survey = read_csv(“data/survey.csv”)</p>
+<section id="joined_df-mergepurchase-survey-by-survey-responseid" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> joined_df = merge(purchase, survey, by = “Survey ResponseID”)</h1>
+</section>
+<section id="write.csvjoined_df-datajoined-amazon-purchases.csv" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> write.csv(joined_df, “data/joined-amazon-purchases.csv”)</h1>
+<p>joined_df = read_csv(“data/joined-amazon-purchases.csv”)</p>
+</section>
+<section id="graph-1" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Graph 1</h1>
+<p>library(dplyr) library(ggplot2) library(maps)</p>
+</section>
+<section id="calculate-the-total-number-of-purchases-in-each-state" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Calculate the total number of purchases in each state</h1>
+<p>total_purchases_by_state &lt;- joined_df %&gt;% group_by(<code>Q-demos-state</code>) %&gt;% summarise(total_purchases = n()) %&gt;% mutate(<code>Q-demos-state</code> = tolower(<code>Q-demos-state</code>)) %&gt;% arrange(desc(total_purchases))</p>
+</section>
+<section id="view-the-resulting-dataframe" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> View the resulting dataframe</h1>
+<p>print(total_purchases_by_state)</p>
+</section>
+<section id="load-map-data-for-states" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Load map data for states</h1>
+<p>states &lt;- map_data(“state”)</p>
+</section>
+<section id="join-the-purchase-data-with-map-data" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Join the purchase data with map data</h1>
+<p>states_purchases &lt;- states %&gt;% rename(<code>Q-demos-state</code> = region) %&gt;% left_join(total_purchases_by_state, by = “Q-demos-state”)</p>
+</section>
+<section id="plot-the-data-on-a-map" class="level1" data-number="11">
+<h1 data-number="11"><span class="header-section-number">11</span> Plot the data on a map</h1>
+<p>ggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) + geom_polygon(color = “black”) + scale_fill_viridis_c(option = “magma”, na.value = “gray”, direction = -1) + theme_minimal() + labs(title = “Total Amazon Purchases from 2018 to 2023 by State”, fill = “Total Purchases”)</p>
+</section>
+<section id="graph-2" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Graph 2</h1>
+<p>library(RColorBrewer)</p>
+</section>
+<section id="convert-order-date-to-date-type" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Convert Order Date to Date type</h1>
+<p>purchase<span class="math inline">\(`Order Date` &lt;- as.Date(purchase\)</span><code>Order Date</code>, format=“%Y-%m-%d”)</p>
+</section>
+<section id="extract-year-from-order-date" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Extract Year from Order Date</h1>
+<p>purchase<span class="math inline">\(Year &lt;- format(purchase\)</span><code>Order Date</code>, “%Y”)</p>
+</section>
+<section id="group-by-year-and-category-to-count-purchases" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Group by Year and Category to count purchases</h1>
+<p>category_counts &lt;- purchase %&gt;% group_by(Year, Category) %&gt;% summarise(purchases = n()) %&gt;% ungroup()</p>
+</section>
+<section id="remove-na-categories-and-filter-out-the-year-2024" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Remove ‘NA’ categories and filter out the year 2024</h1>
+<p>category_counts &lt;- category_counts %&gt;% filter(Category != “NA” &amp; Year != “2024”)</p>
+</section>
+<section id="get-the-top-5-most-purchased-categories-for-each-year" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Get the top 5 most purchased categories for each year</h1>
+<p>top_categories &lt;- category_counts %&gt;% group_by(Year) %&gt;% top_n(5, purchases) %&gt;% ungroup()</p>
+</section>
+<section id="order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Order categories within each year by number of purchases (tallest to shortest)</h1>
+<p>top_categories<span class="math inline">\(Category &lt;- factor(top_categories\)</span>Category, levels = top_categories %&gt;% group_by(Year) %&gt;% arrange(Year, desc(purchases)) %&gt;% pull(Category) %&gt;% unique())</p>
+</section>
+<section id="choose-a-qualitative-color-palette" class="level1" data-number="19">
+<h1 data-number="19"><span class="header-section-number">19</span> Choose a qualitative color palette</h1>
+<p>palette &lt;- brewer.pal(8, “Set2”)</p>
+</section>
+<section id="create-the-grouped-bar-graph" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Create the grouped bar graph</h1>
+<p>ggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) + geom_bar(stat = “identity”, position = “dodge”) + labs(title = “Top 5 Most Purchased Amazon Categories by Year”, x = “Year”, y = “Number of Purchases”) + scale_fill_manual(values = palette) + theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))</p>
+</section>
+<section id="graph-3" class="level1" data-number="21">
+<h1 data-number="21"><span class="header-section-number">21</span> Graph 3</h1>
+</section>
+<section id="calculate-total-spending-per-user" class="level1" data-number="22">
+<h1 data-number="22"><span class="header-section-number">22</span> Calculate total spending per user</h1>
+<p>user_spending &lt;- joined_df %&gt;% mutate(Total_Spent = <code>Purchase Price Per Unit</code> * Quantity) %&gt;% group_by(<code>Survey ResponseID</code>) %&gt;% summarise(Total_Spent_Per_User = sum(Total_Spent, na.rm = TRUE))</p>
+</section>
+<section id="plot-a-histogram-of-total-spending-per-user" class="level1" data-number="23">
+<h1 data-number="23"><span class="header-section-number">23</span> Plot a histogram of total spending per user</h1>
+<p>ggplot(user_spending, aes(x = Total_Spent_Per_User)) + geom_histogram(binwidth = 1000, fill = “blue”, color = “black”, alpha = 0.7) + labs( title = “Distribution of Total Spending from 2018 to 2023 Per Account”, x = “Total Spending (USD)”, y = “Number of Accounts” ) + theme_minimal()</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -613,7 +746,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/briannata/shopping-analysis/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/briannata/shopping-analysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/briannata/shopping-analysis/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/briannata/shopping-analysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

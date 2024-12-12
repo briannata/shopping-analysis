@@ -2,9 +2,6 @@ project:
   type: book
   output-dir: docs
 
-resources:
-  - data
-
 execute:
   echo: true
 
