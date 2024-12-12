@@ -8,3 +8,35 @@ survey = read_csv("data/survey.csv")
 # write.csv(joined_df, "data/joined-amazon-purchases.csv")
 
 joined_df = read_csv("data/joined-amazon-purchases.csv")
+
+# Graph 1
+
+library(dplyr)
+library(ggplot2)
+library(maps)
+
+# Calculate the total number of purchases in each state
+total_purchases_by_state <- joined_df %>%
+  group_by(`Q-demos-state`) %>%
+  summarise(total_purchases = n()) %>%
+  mutate(`Q-demos-state` = tolower(`Q-demos-state`)) %>%
+  arrange(desc(total_purchases))
+
+# View the resulting dataframe
+print(total_purchases_by_state)
+
+# Load map data for states
+states <- map_data("state")
+
+# Join the purchase data with map data
+states_purchases <- states %>%
+  rename(`Q-demos-state` = region) %>%
+  left_join(total_purchases_by_state, by = "Q-demos-state")
+
+# Plot the data on a map
+ggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) +
+  geom_polygon(color = "black") +
+  scale_fill_viridis_c(option = "magma", na.value = "gray", direction = -1) +
+  theme_minimal() +
+  labs(title = "Total Purchases by State", fill = "Total Purchases")
+  
