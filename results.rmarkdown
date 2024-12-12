@@ -1,5 +1,9 @@
 # Results
 
+
+
+
+
 ```{r}
 options(warn=-1)
 library(readr)
@@ -13,7 +17,15 @@ joined_df = read_csv("data/joined-amazon-purchases.csv")
 ```
 
 
-## Graph 1
+
+
+
+
+# Graph 1
+
+
+
+
 
 ```{r}
 library(dplyr)
@@ -43,8 +55,16 @@ ggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) 
   labs(title = "Total Amazon Purchases from 2018 to 2023 by State", fill = "Total Purchases")
 ```
 
+
+
+
+
   
-## Graph 2
+# Graph 2
+
+
+
+
 
 ```{r}
 library(RColorBrewer)
@@ -92,9 +112,17 @@ ggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+
+
+
+
   
   
-## Graph 3
+# Graph 3
+
+
+
+
 
 ```{r}
 # Calculate total spending per user
@@ -114,60 +142,34 @@ ggplot(user_spending, aes(x = Total_Spent_Per_User)) +
   theme_minimal()
 ```
 
-## Graph 4
 
-```{r fig.width=10, fig.height=8}
+
+
+
+# Graph 4
+
+
+
+
+
+```{r}
 library(ggalluvial)
 
-# Filter for rows where "2023" is in the "Order Date"
-# and find the top 5 categories by frequency
-top_categories <- joined_df %>%
-  filter(grepl("2023", `Order Date`)) %>%
-  count(Category, sort = TRUE) %>%
-  slice_max(n, n = 5) %>%
-  pull(Category)
-
-# Filter the data for the top 5 categories
+# Select and filter relevant columns
 alluvial_data <- joined_df %>%
-  filter(grepl("2023", `Order Date`) & Category %in% top_categories) %>%
   select(`Q-demos-age`, Category, `Q-demos-income`) %>%
   filter(!is.na(`Q-demos-age`) & !is.na(Category) & !is.na(`Q-demos-income`))
 
 # Create the alluvial diagram
 ggplot(alluvial_data,
        aes(axis1 = `Q-demos-age`, axis2 = Category, axis3 = `Q-demos-income`)) +
-  geom_flow(aes(fill = Category)) +
-  geom_stratum(width = 0.6) +
-  geom_text(stat = "stratum", aes(label = after_stat(stratum)), size = 2.5) +
+  geom_alluvium(aes(fill = Category)) +
+  geom_stratum() +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
   theme_minimal() +
-  labs(title = "Alluvial Diagram of Age, Category, and Income for 2023",
+  labs(title = "Alluvial Diagram of Age, Category, and Income",
        x = "Variables",
        y = "Frequency") +
-  scale_x_discrete(labels = c("Age", "Category", "Income")) +
-  theme(
-    legend.position = "top",            # Move legend to the top
-    legend.title = element_blank(),     # Optional: remove legend title for a cleaner look
-    axis.text.x = element_text(angle = 45, hjust = 1),  # Optional: tilt axis labels
-    plot.margin = margin(10, 10, 10, 10)                # Reduce blank margins
-  )
-```
-## Graph 5
-```{r}
-library(vcd)
-
-variables <- c("Q-demos-hispanic", 
-               "Q-amazon-use-howmany", 
-               "Q-amazon-use-hh-size")
-
-# Filter the dataset to include only these variables
-data_for_mosaic <- survey %>%
-  select(all_of(variables)) %>%
-  na.omit() # Remove rows with NA values
-
-# Generate the mosaic plot
-pairs(table(data_for_mosaic), 
-      diag_panel = pairs_diagonal_mosaic(offset_varnames=-2.5),
-      upper_panel_args = list(shade = TRUE),
-      lower_panel_args = list(shade = TRUE))
+  scale_x_discrete(labels = c("Age", "Category", "Income"))
 ```
 
