@@ -84,7 +84,7 @@ Plot 4
 ```{r}
 library(ggridges)
 joined = filter(joined, `Q-demos-education`!='Prefer not to say')
-labels = c("Some High school or less High school", "High school diploma/GED", "Graduate/professional Degree", "Bachelor's Degree")
+labels = c("Some High School or Less High School", "High School Diploma/GED", "Graduate/Professional Degree", "Bachelor's Degree")
 
 #Replacing outliers as mean
 ggplot(joined, aes(x = `top_coded_purchase`, y = `Q-demos-education`)) +
