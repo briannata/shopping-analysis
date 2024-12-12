@@ -23,11 +23,17 @@ def process_csv(input_csv):
 
         # Replace long graduate or professional degree label
         if q_demos_col == "Q-demos-education":
-            top_categories['Group'] = top_categories['Group'].replace('Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)', 'Graduate or professional degree')
+            top_categories['Group'] = top_categories['Group'].replace('Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)', 'Graduate/professional')
+            top_categories['Group'] = top_categories['Group'].replace("Bachelor's degree", "Bachelor's")
+            top_categories['Group'] = top_categories['Group'].replace('High school diploma or GED', 'High school/GED')
+            top_categories['Group'] = top_categories['Group'].replace('Some high school or less', '< High school')
 
         # Filter race demographic categories (get rid of categories that are combinations of these and have much less data)
         if q_demos_col == "Q-demos-race":
-            top_categories = top_categories[top_categories['Group'].isin(['Black or African American', 'White or Caucasian', 'Other' , 'Asian', 'American Indian/Native American or Alaska Native', 'Native Hawaiian or Other Pacific Islander'])]
+            top_categories = top_categories[top_categories['Group'].isin(['Black or African American', 'White or Caucasian', 'Other' , 'Asian', 'American Indian/Native American or Alaska Native'])]
+            top_categories['Group'] = top_categories['Group'].replace('Black or African American', 'African American')
+            top_categories['Group'] = top_categories['Group'].replace('White or Caucasian', 'Caucasian')
+            top_categories['Group'] = top_categories['Group'].replace('American Indian/Native American or Alaska Native', 'American Indian/Native American/Alaska Native')
 
         # Save to a new CSV file
         demo = q_demos_col.replace("Q-demos-", "")
