@@ -6,10 +6,17 @@
   }
 </style> 
 
-<div id="plot">
+<div>
+  <button type="button" onclick="changeData('Age')">Age</button>
+  <button type="button" onclick="changeData('Education')">Education</button>
+  <button type="button" onclick="changeData('Gender')">Gender</button>
+  <button type="button" onclick="changeData('Income')">Income</button>
+  <button type="button" onclick="changeData('Race')">Race</button>
+
+  <div id="plot">
+  </div>
 </div>
 
-<button type="button" onclick="print()">Print</button>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
 <script src="scripts/myscript.js"></script>
