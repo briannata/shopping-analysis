@@ -1,5 +1,8 @@
 # Results
 
+```{r}
+#| warning: false
+#| message: false
 library(readr)
 purchase = read_csv("data/amazon-purchases.csv")
 survey = read_csv("data/survey.csv")
@@ -8,8 +11,14 @@ survey = read_csv("data/survey.csv")
 # write.csv(joined_df, "data/joined-amazon-purchases.csv")
 
 joined_df = read_csv("data/joined-amazon-purchases.csv")
+```
 
-# Graph 1
+
+## State Map of Total Amazon Purchases
+
+```{r}
+#| warning: false
+#| message: false
 
 library(dplyr)
 library(ggplot2)
@@ -21,9 +30,6 @@ total_purchases_by_state <- joined_df %>%
   summarise(total_purchases = n()) %>%
   mutate(`Q-demos-state` = tolower(`Q-demos-state`)) %>%
   arrange(desc(total_purchases))
-
-# View the resulting dataframe
-print(total_purchases_by_state)
 
 # Load map data for states
 states <- map_data("state")
@@ -39,8 +45,15 @@ ggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) 
   scale_fill_viridis_c(option = "magma", na.value = "gray", direction = -1) +
   theme_minimal() +
   labs(title = "Total Amazon Purchases from 2018 to 2023 by State", fill = "Total Purchases")
+```
+We used a US state map to visualize which states made the most Amazon purchases and which had the least from 2018 to 2023. California had the greatest amount of Amazon purchases by a large margin while Texas had the second highest. We were not surprised that California had the most purchases, but we were surprised that Texas was second. A lot of the midwest states, such as Montana, North Dakota, South Dakota, and Wyoming had the least amount of Amazon purchases. 
   
-# Graph 2
+## Grouped Bar Chart of Top 5 Categories Per Year
+
+```{r}
+#| warning: false
+#| message: false
+
 
 library(RColorBrewer)
 
@@ -85,9 +98,17 @@ ggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) +
   scale_fill_manual(values = palette) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+This grouped bar chart shows the top purchases per year. For each year, books are consistently the top category purchased, followed by pet food. However, in 2022 and 2023, gift cards were no longer considered a top category and instead, medicine appeared.
+People also bought more nutritional supplements than shirts until 2021 and 2022, and then in 2023 nutritional supplements were more popular again. 
   
   
-# Graph 3
+## Distribution of User's Total Spending on Amazon
+
+```{r}
+#| warning: false
+#| message: false
+
 
 # Calculate total spending per user
 user_spending <- joined_df %>%
@@ -104,3 +125,88 @@ ggplot(user_spending, aes(x = Total_Spent_Per_User)) +
     y = "Number of Accounts"
   ) +
   theme_minimal()
+```
+This histogram shows the distribution of user's total spending over 5 years. The number of accounts is the frequency of Amazon users/accounts that spend that much over a total of 5 years. The majority of users spend less than $30,000 in 5 years, with the highest peak being $2,000 within 5 years. This histogram however is right skewed with some users spending almost $12,000 over the 5 year period. Knowing the distribution is skewed we may need to do something with our outliers when we use our data for our other visualizations.
+
+## Alluvial Diagram of Age, Amazon Category, and Income for 2023
+
+```{r fig.width=10, fig.height=8}
+#| warning: false
+#| message: false
+
+
+library(ggalluvial)
+
+# Filter for rows where "2023" is in the "Order Date"
+# and find the top 5 categories by frequency
+top_categories <- joined_df %>%
+  filter(grepl("2023", `Order Date`)) %>%
+  count(Category, sort = TRUE) %>%
+  slice_max(n, n = 5) %>%
+  pull(Category)
+
+# Filter the data for the top 5 categories
+alluvial_data <- joined_df %>%
+  filter(grepl("2023", `Order Date`) & Category %in% top_categories) %>%
+  select(`Q-demos-age`, Category, `Q-demos-income`) %>%
+  filter(!is.na(`Q-demos-age`) & !is.na(Category) & !is.na(`Q-demos-income`))
+
+# Create the alluvial diagram
+ggplot(alluvial_data,
+       aes(axis1 = `Q-demos-age`, axis2 = Category, axis3 = factor(`Q-demos-income`, levels = c("Less than $25,000", "$25,000 - $49,999", "$50,000 - $74,999","$75,000 - $99,999", "$100,000 - $149,999", "$150,000 or more", "Prefer not to say")))) +
+  geom_flow(aes(fill = Category)) +
+  geom_stratum(width = 0.6) +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum)), size = 2.5) +
+  theme_minimal() +
+  labs(title = "Alluvial Diagram of Age, Category, and Income for 2023",
+       x = "Variables",
+       y = "Frequency") +
+  scale_x_discrete(labels = c("Age", "Category", "Income")) +
+  theme(
+    legend.position = "top",            # Move legend to the top
+    legend.title = element_blank(),     # Optional: remove legend title for a cleaner look
+    axis.text.x = element_text(angle = 45, hjust = 1),  # Optional: tilt axis labels
+    plot.margin = margin(10, 10, 10, 10)                # Reduce blank margins
+  )
+```
+We saw the top categories in the bar chart so now we are using an alluvial diagram to see the flow between the demographics,  age and income, and the top 5 categories to find any trends or patterns. The book category has the most flow with the younger age groups buying more books on Amazon. This doesn't mean that younger people read more and older people do not, it just shows that for this study these younger participants are buying more books online through Amazon. The second most frequent purchase category is pet food and we can see people from ages 24-54 are the top customers and usually they have a higher income. It was interesting to see that medication was the most popular for users between 24 and 44 years old with medium incomes at $25,000 - $74,999. This graph gave more insight into the interaction between variables when looking at the top categories.
+
+## Mosiac Pairs Plot of Gender, Purchases Per Week, and Education
+```{r fig.width = 12, fig.height= 10}
+#| warning: false
+#| message: false
+
+
+library(vcd)
+survey = filter(survey, `Q-demos-gender` == 'Female' | `Q-demos-gender` == 'Male')
+survey = filter(survey, `Q-demos-education`!='Prefer not to say')
+
+survey = mutate(survey, `Q-demos-education` = ifelse(survey$`Q-demos-education`== "Some High School or Less High School" , "< High School", survey$`Q-demos-education`))
+survey = mutate(survey, `Q-demos-education` = ifelse(`Q-demos-education`== "Bachelor's degree", "Bachelors", survey$`Q-demos-education`))
+survey = mutate(survey, `Q-demos-education` = ifelse(`Q-demos-education`== "Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)", "Graduate", survey$`Q-demos-education`))
+survey = mutate(survey, `Q-demos-education` = ifelse(`Q-demos-education`== "Graduate/Professional Degree", "Graduate", survey$`Q-demos-education`))
+survey = mutate(survey, `Q-demos-education` = ifelse(`Q-demos-education`== "Some high school or less", "<High School", survey$`Q-demos-education`))
+survey = mutate(survey, `Q-demos-education` = ifelse(`Q-demos-education`== "High school diploma or GED", "High School", survey$`Q-demos-education`))
+unique(survey$`Q-demos-education`)
+
+survey = mutate(survey, `Q-amazon-use-how-oft` = ifelse(`Q-amazon-use-how-oft`== "Less than 5 times per month", "<5 a month", survey$`Q-amazon-use-how-oft`))
+survey = mutate(survey, `Q-amazon-use-how-oft` = ifelse(`Q-amazon-use-how-oft`== "5 - 10 times per month", "5-10 a month", survey$`Q-amazon-use-how-oft`))
+survey = mutate(survey, `Q-amazon-use-how-oft` = ifelse(`Q-amazon-use-how-oft`== "More than 10 times per month", ">10 a month", survey$`Q-amazon-use-how-oft`))
+
+variables <- c("Q-demos-gender", 
+               "Q-amazon-use-how-oft", 
+               "Q-demos-education")
+
+# Filter the dataset to include only these variables
+data_for_mosaic <- survey %>%
+  select(all_of(variables)) %>%
+  na.omit() # Remove rows with NA values
+
+# Generate the mosaic plot
+pairs(table(data_for_mosaic), 
+      diag_panel = pairs_diagonal_mosaic(offset_varnames=-2.5),cex=1,
+      upper_panel_args = list(shade = TRUE),
+      lower_panel_args = list(shade = TRUE),
+      main = "Mosaic Pairs Plot of Gender, Purchases Per Week, and Education")
+```
+To see if the variables have a strong association we used a mosaic plot. Gender and education levels were strongly associated. However, for our topic we are more interested in the association with how often the user purchases from Amazon a month (shopping frequency). When looking at all three variables together, they were not strongly associated. Then if we just look at gender and how often the user shops on Amazon, there appears to be more of an association compared to education level and shopping frequency.   

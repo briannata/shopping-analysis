@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,35 +103,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -178,26 +183,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#joined_df-mergepurchase-survey-by-survey-responseid" id="toc-joined_df-mergepurchase-survey-by-survey-responseid" class="nav-link active" data-scroll-target="#joined_df-mergepurchase-survey-by-survey-responseid"><span class="header-section-number">4</span> joined_df = merge(purchase, survey, by = “Survey ResponseID”)</a></li>
-  <li><a href="#write.csvjoined_df-datajoined-amazon-purchases.csv" id="toc-write.csvjoined_df-datajoined-amazon-purchases.csv" class="nav-link" data-scroll-target="#write.csvjoined_df-datajoined-amazon-purchases.csv"><span class="header-section-number">5</span> write.csv(joined_df, “data/joined-amazon-purchases.csv”)</a></li>
-  <li><a href="#graph-1" id="toc-graph-1" class="nav-link" data-scroll-target="#graph-1"><span class="header-section-number">6</span> Graph 1</a></li>
-  <li><a href="#calculate-the-total-number-of-purchases-in-each-state" id="toc-calculate-the-total-number-of-purchases-in-each-state" class="nav-link" data-scroll-target="#calculate-the-total-number-of-purchases-in-each-state"><span class="header-section-number">7</span> Calculate the total number of purchases in each state</a></li>
-  <li><a href="#view-the-resulting-dataframe" id="toc-view-the-resulting-dataframe" class="nav-link" data-scroll-target="#view-the-resulting-dataframe"><span class="header-section-number">8</span> View the resulting dataframe</a></li>
-  <li><a href="#load-map-data-for-states" id="toc-load-map-data-for-states" class="nav-link" data-scroll-target="#load-map-data-for-states"><span class="header-section-number">9</span> Load map data for states</a></li>
-  <li><a href="#join-the-purchase-data-with-map-data" id="toc-join-the-purchase-data-with-map-data" class="nav-link" data-scroll-target="#join-the-purchase-data-with-map-data"><span class="header-section-number">10</span> Join the purchase data with map data</a></li>
-  <li><a href="#plot-the-data-on-a-map" id="toc-plot-the-data-on-a-map" class="nav-link" data-scroll-target="#plot-the-data-on-a-map"><span class="header-section-number">11</span> Plot the data on a map</a></li>
-  <li><a href="#graph-2" id="toc-graph-2" class="nav-link" data-scroll-target="#graph-2"><span class="header-section-number">12</span> Graph 2</a></li>
-  <li><a href="#convert-order-date-to-date-type" id="toc-convert-order-date-to-date-type" class="nav-link" data-scroll-target="#convert-order-date-to-date-type"><span class="header-section-number">13</span> Convert Order Date to Date type</a></li>
-  <li><a href="#extract-year-from-order-date" id="toc-extract-year-from-order-date" class="nav-link" data-scroll-target="#extract-year-from-order-date"><span class="header-section-number">14</span> Extract Year from Order Date</a></li>
-  <li><a href="#group-by-year-and-category-to-count-purchases" id="toc-group-by-year-and-category-to-count-purchases" class="nav-link" data-scroll-target="#group-by-year-and-category-to-count-purchases"><span class="header-section-number">15</span> Group by Year and Category to count purchases</a></li>
-  <li><a href="#remove-na-categories-and-filter-out-the-year-2024" id="toc-remove-na-categories-and-filter-out-the-year-2024" class="nav-link" data-scroll-target="#remove-na-categories-and-filter-out-the-year-2024"><span class="header-section-number">16</span> Remove ‘NA’ categories and filter out the year 2024</a></li>
-  <li><a href="#get-the-top-5-most-purchased-categories-for-each-year" id="toc-get-the-top-5-most-purchased-categories-for-each-year" class="nav-link" data-scroll-target="#get-the-top-5-most-purchased-categories-for-each-year"><span class="header-section-number">17</span> Get the top 5 most purchased categories for each year</a></li>
-  <li><a href="#order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest" id="toc-order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest" class="nav-link" data-scroll-target="#order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest"><span class="header-section-number">18</span> Order categories within each year by number of purchases (tallest to shortest)</a></li>
-  <li><a href="#choose-a-qualitative-color-palette" id="toc-choose-a-qualitative-color-palette" class="nav-link" data-scroll-target="#choose-a-qualitative-color-palette"><span class="header-section-number">19</span> Choose a qualitative color palette</a></li>
-  <li><a href="#create-the-grouped-bar-graph" id="toc-create-the-grouped-bar-graph" class="nav-link" data-scroll-target="#create-the-grouped-bar-graph"><span class="header-section-number">20</span> Create the grouped bar graph</a></li>
-  <li><a href="#graph-3" id="toc-graph-3" class="nav-link" data-scroll-target="#graph-3"><span class="header-section-number">21</span> Graph 3</a></li>
-  <li><a href="#calculate-total-spending-per-user" id="toc-calculate-total-spending-per-user" class="nav-link" data-scroll-target="#calculate-total-spending-per-user"><span class="header-section-number">22</span> Calculate total spending per user</a></li>
-  <li><a href="#plot-a-histogram-of-total-spending-per-user" id="toc-plot-a-histogram-of-total-spending-per-user" class="nav-link" data-scroll-target="#plot-a-histogram-of-total-spending-per-user"><span class="header-section-number">23</span> Plot a histogram of total spending per user</a></li>
+  <li><a href="#state-map-of-total-amazon-purchases" id="toc-state-map-of-total-amazon-purchases" class="nav-link active" data-scroll-target="#state-map-of-total-amazon-purchases"><span class="header-section-number">3.1</span> State Map of Total Amazon Purchases</a></li>
+  <li><a href="#grouped-bar-chart-of-top-5-categories-per-year" id="toc-grouped-bar-chart-of-top-5-categories-per-year" class="nav-link" data-scroll-target="#grouped-bar-chart-of-top-5-categories-per-year"><span class="header-section-number">3.2</span> Grouped Bar Chart of Top 5 Categories Per Year</a></li>
+  <li><a href="#distribution-of-users-total-spending-on-amazon" id="toc-distribution-of-users-total-spending-on-amazon" class="nav-link" data-scroll-target="#distribution-of-users-total-spending-on-amazon"><span class="header-section-number">3.3</span> Distribution of User’s Total Spending on Amazon</a></li>
+  <li><a href="#alluvial-diagram-of-age-amazon-category-and-income-for-2023" id="toc-alluvial-diagram-of-age-amazon-category-and-income-for-2023" class="nav-link" data-scroll-target="#alluvial-diagram-of-age-amazon-category-and-income-for-2023"><span class="header-section-number">3.4</span> Alluvial Diagram of Age, Amazon Category, and Income for 2023</a></li>
+  <li><a href="#mosiac-pairs-plot-of-gender-purchases-per-week-and-education" id="toc-mosiac-pairs-plot-of-gender-purchases-per-week-and-education" class="nav-link" data-scroll-target="#mosiac-pairs-plot-of-gender-purchases-per-week-and-education"><span class="header-section-number">3.5</span> Mosiac Pairs Plot of Gender, Purchases Per Week, and Education</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/briannata/shopping-analysis/edit/main/results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/briannata/shopping-analysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -223,84 +213,250 @@ window.Quarto = {
 </header>
 
 
-<p>library(readr) purchase = read_csv(“data/amazon-purchases.csv”) survey = read_csv(“data/survey.csv”)</p>
-<section id="joined_df-mergepurchase-survey-by-survey-responseid" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> joined_df = merge(purchase, survey, by = “Survey ResponseID”)</h1>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>purchase <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"data/amazon-purchases.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"data/survey.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># joined_df = merge(purchase, survey, by = "Survey ResponseID")</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># write.csv(joined_df, "data/joined-amazon-purchases.csv")</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>joined_df <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"data/joined-amazon-purchases.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="state-map-of-total-amazon-purchases" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="state-map-of-total-amazon-purchases"><span class="header-section-number">3.1</span> State Map of Total Amazon Purchases</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the total number of purchases in each state</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>total_purchases_by_state <span class="ot">&lt;-</span> joined_df <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Q-demos-state</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_purchases =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Q-demos-state</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">tolower</span>(<span class="st">`</span><span class="at">Q-demos-state</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_purchases))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load map data for states</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>states <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"state"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the purchase data with map data</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>states_purchases <span class="ot">&lt;-</span> states <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Q-demos-state</span><span class="st">`</span> <span class="ot">=</span> region) <span class="sc">%&gt;%</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(total_purchases_by_state, <span class="at">by =</span> <span class="st">"Q-demos-state"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data on a map</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(states_purchases, <span class="fu">aes</span>(long, lat, <span class="at">group =</span> group, <span class="at">fill =</span> total_purchases)) <span class="sc">+</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">option =</span> <span class="st">"magma"</span>, <span class="at">na.value =</span> <span class="st">"gray"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Amazon Purchases from 2018 to 2023 by State"</span>, <span class="at">fill =</span> <span class="st">"Total Purchases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We used a US state map to visualize which states made the most Amazon purchases and which had the least from 2018 to 2023. California had the greatest amount of Amazon purchases by a large margin while Texas had the second highest. We were not surprised that California had the most purchases, but we were surprised that Texas was second. A lot of the midwest states, such as Montana, North Dakota, South Dakota, and Wyoming had the least amount of Amazon purchases.</p>
 </section>
-<section id="write.csvjoined_df-datajoined-amazon-purchases.csv" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> write.csv(joined_df, “data/joined-amazon-purchases.csv”)</h1>
-<p>joined_df = read_csv(“data/joined-amazon-purchases.csv”)</p>
+<section id="grouped-bar-chart-of-top-5-categories-per-year" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="grouped-bar-chart-of-top-5-categories-per-year"><span class="header-section-number">3.2</span> Grouped Bar Chart of Top 5 Categories Per Year</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Order Date to Date type</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>purchase<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(purchase<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span>, <span class="at">format=</span><span class="st">"%Y-%m-%d"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract Year from Order Date</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>purchase<span class="sc">$</span>Year <span class="ot">&lt;-</span> <span class="fu">format</span>(purchase<span class="sc">$</span><span class="st">`</span><span class="at">Order Date</span><span class="st">`</span>, <span class="st">"%Y"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Group by Year and Category to count purchases</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> purchase <span class="sc">%&gt;%</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, Category) <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">purchases =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove 'NA' categories and filter out the year 2024</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>category_counts <span class="ot">&lt;-</span> category_counts <span class="sc">%&gt;%</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Category <span class="sc">!=</span> <span class="st">"NA"</span> <span class="sc">&amp;</span> Year <span class="sc">!=</span> <span class="st">"2024"</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the top 5 most purchased categories for each year</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>top_categories <span class="ot">&lt;-</span> category_counts <span class="sc">%&gt;%</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, purchases) <span class="sc">%&gt;%</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Order categories within each year by number of purchases (tallest to shortest)</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>top_categories<span class="sc">$</span>Category <span class="ot">&lt;-</span> <span class="fu">factor</span>(top_categories<span class="sc">$</span>Category, </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">levels =</span> top_categories <span class="sc">%&gt;%</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">group_by</span>(Year) <span class="sc">%&gt;%</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">arrange</span>(Year, <span class="fu">desc</span>(purchases)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">pull</span>(Category) <span class="sc">%&gt;%</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                                     <span class="fu">unique</span>())</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose a qualitative color palette</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>palette <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Set2"</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the grouped bar graph</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_categories, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> purchases, <span class="at">fill =</span> Category)) <span class="sc">+</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 5 Most Purchased Amazon Categories by Year"</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Number of Purchases"</span>) <span class="sc">+</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> palette) <span class="sc">+</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This grouped bar chart shows the top purchases per year. For each year, books are consistently the top category purchased, followed by pet food. However, in 2022 and 2023, gift cards were no longer considered a top category and instead, medicine appeared. People also bought more nutritional supplements than shirts until 2021 and 2022, and then in 2023 nutritional supplements were more popular again.</p>
 </section>
-<section id="graph-1" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Graph 1</h1>
-<p>library(dplyr) library(ggplot2) library(maps)</p>
+<section id="distribution-of-users-total-spending-on-amazon" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="distribution-of-users-total-spending-on-amazon"><span class="header-section-number">3.3</span> Distribution of User’s Total Spending on Amazon</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate total spending per user</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>user_spending <span class="ot">&lt;-</span> joined_df <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Spent =</span> <span class="st">`</span><span class="at">Purchase Price Per Unit</span><span class="st">`</span> <span class="sc">*</span> Quantity) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Survey ResponseID</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_Spent_Per_User =</span> <span class="fu">sum</span>(Total_Spent, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a histogram of total spending per user</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(user_spending, <span class="fu">aes</span>(<span class="at">x =</span> Total_Spent_Per_User)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1000</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribution of Total Spending from 2018 to 2023 Per Account"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Total Spending (USD)"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of Accounts"</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This histogram shows the distribution of user’s total spending over 5 years. The number of accounts is the frequency of Amazon users/accounts that spend that much over a total of 5 years. The majority of users spend less than $30,000 in 5 years, with the highest peak being $2,000 within 5 years. This histogram however is right skewed with some users spending almost $12,000 over the 5 year period. Knowing the distribution is skewed we may need to do something with our outliers when we use our data for our other visualizations.</p>
 </section>
-<section id="calculate-the-total-number-of-purchases-in-each-state" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Calculate the total number of purchases in each state</h1>
-<p>total_purchases_by_state &lt;- joined_df %&gt;% group_by(<code>Q-demos-state</code>) %&gt;% summarise(total_purchases = n()) %&gt;% mutate(<code>Q-demos-state</code> = tolower(<code>Q-demos-state</code>)) %&gt;% arrange(desc(total_purchases))</p>
+<section id="alluvial-diagram-of-age-amazon-category-and-income-for-2023" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="alluvial-diagram-of-age-amazon-category-and-income-for-2023"><span class="header-section-number">3.4</span> Alluvial Diagram of Age, Amazon Category, and Income for 2023</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggalluvial)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for rows where "2023" is in the "Order Date"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># and find the top 5 categories by frequency</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>top_categories <span class="ot">&lt;-</span> joined_df <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"2023"</span>, <span class="st">`</span><span class="at">Order Date</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Category, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(n, <span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Category)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the data for the top 5 categories</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>alluvial_data <span class="ot">&lt;-</span> joined_df <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">"2023"</span>, <span class="st">`</span><span class="at">Order Date</span><span class="st">`</span>) <span class="sc">&amp;</span> Category <span class="sc">%in%</span> top_categories) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Q-demos-age</span><span class="st">`</span>, Category, <span class="st">`</span><span class="at">Q-demos-income</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Q-demos-age</span><span class="st">`</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(Category) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Q-demos-income</span><span class="st">`</span>))</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the alluvial diagram</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(alluvial_data,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">axis1 =</span> <span class="st">`</span><span class="at">Q-demos-age</span><span class="st">`</span>, <span class="at">axis2 =</span> Category, <span class="at">axis3 =</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">Q-demos-income</span><span class="st">`</span>, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Less than $25,000"</span>, <span class="st">"$25,000 - $49,999"</span>, <span class="st">"$50,000 - $74,999"</span>,<span class="st">"$75,000 - $99,999"</span>, <span class="st">"$100,000 - $149,999"</span>, <span class="st">"$150,000 or more"</span>, <span class="st">"Prefer not to say"</span>)))) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_flow</span>(<span class="fu">aes</span>(<span class="at">fill =</span> Category)) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stratum</span>(<span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"stratum"</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(stratum)), <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Alluvial Diagram of Age, Category, and Income for 2023"</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Variables"</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequency"</span>) <span class="sc">+</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"Category"</span>, <span class="st">"Income"</span>)) <span class="sc">+</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,            <span class="co"># Move legend to the top</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),     <span class="co"># Optional: remove legend title for a cleaner look</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),  <span class="co"># Optional: tilt axis labels</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)                <span class="co"># Reduce blank margins</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We saw the top categories in the bar chart so now we are using an alluvial diagram to see the flow between the demographics, age and income, and the top 5 categories to find any trends or patterns. The book category has the most flow with the younger age groups buying more books on Amazon. This doesn’t mean that younger people read more and older people do not, it just shows that for this study these younger participants are buying more books online through Amazon. The second most frequent purchase category is pet food and we can see people from ages 24-54 are the top customers and usually they have a higher income. It was interesting to see that medication was the most popular for users between 24 and 44 years old with medium incomes at $25,000 - $74,999. This graph gave more insight into the interaction between variables when looking at the top categories.</p>
 </section>
-<section id="view-the-resulting-dataframe" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> View the resulting dataframe</h1>
-<p>print(total_purchases_by_state)</p>
-</section>
-<section id="load-map-data-for-states" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Load map data for states</h1>
-<p>states &lt;- map_data(“state”)</p>
-</section>
-<section id="join-the-purchase-data-with-map-data" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> Join the purchase data with map data</h1>
-<p>states_purchases &lt;- states %&gt;% rename(<code>Q-demos-state</code> = region) %&gt;% left_join(total_purchases_by_state, by = “Q-demos-state”)</p>
-</section>
-<section id="plot-the-data-on-a-map" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Plot the data on a map</h1>
-<p>ggplot(states_purchases, aes(long, lat, group = group, fill = total_purchases)) + geom_polygon(color = “black”) + scale_fill_viridis_c(option = “magma”, na.value = “gray”, direction = -1) + theme_minimal() + labs(title = “Total Amazon Purchases from 2018 to 2023 by State”, fill = “Total Purchases”)</p>
-</section>
-<section id="graph-2" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Graph 2</h1>
-<p>library(RColorBrewer)</p>
-</section>
-<section id="convert-order-date-to-date-type" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Convert Order Date to Date type</h1>
-<p>purchase<span class="math inline">\(`Order Date` &lt;- as.Date(purchase\)</span><code>Order Date</code>, format=“%Y-%m-%d”)</p>
-</section>
-<section id="extract-year-from-order-date" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Extract Year from Order Date</h1>
-<p>purchase<span class="math inline">\(Year &lt;- format(purchase\)</span><code>Order Date</code>, “%Y”)</p>
-</section>
-<section id="group-by-year-and-category-to-count-purchases" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> Group by Year and Category to count purchases</h1>
-<p>category_counts &lt;- purchase %&gt;% group_by(Year, Category) %&gt;% summarise(purchases = n()) %&gt;% ungroup()</p>
-</section>
-<section id="remove-na-categories-and-filter-out-the-year-2024" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> Remove ‘NA’ categories and filter out the year 2024</h1>
-<p>category_counts &lt;- category_counts %&gt;% filter(Category != “NA” &amp; Year != “2024”)</p>
-</section>
-<section id="get-the-top-5-most-purchased-categories-for-each-year" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Get the top 5 most purchased categories for each year</h1>
-<p>top_categories &lt;- category_counts %&gt;% group_by(Year) %&gt;% top_n(5, purchases) %&gt;% ungroup()</p>
-</section>
-<section id="order-categories-within-each-year-by-number-of-purchases-tallest-to-shortest" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> Order categories within each year by number of purchases (tallest to shortest)</h1>
-<p>top_categories<span class="math inline">\(Category &lt;- factor(top_categories\)</span>Category, levels = top_categories %&gt;% group_by(Year) %&gt;% arrange(Year, desc(purchases)) %&gt;% pull(Category) %&gt;% unique())</p>
-</section>
-<section id="choose-a-qualitative-color-palette" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> Choose a qualitative color palette</h1>
-<p>palette &lt;- brewer.pal(8, “Set2”)</p>
-</section>
-<section id="create-the-grouped-bar-graph" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> Create the grouped bar graph</h1>
-<p>ggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) + geom_bar(stat = “identity”, position = “dodge”) + labs(title = “Top 5 Most Purchased Amazon Categories by Year”, x = “Year”, y = “Number of Purchases”) + scale_fill_manual(values = palette) + theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))</p>
-</section>
-<section id="graph-3" class="level1" data-number="21">
-<h1 data-number="21"><span class="header-section-number">21</span> Graph 3</h1>
-</section>
-<section id="calculate-total-spending-per-user" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> Calculate total spending per user</h1>
-<p>user_spending &lt;- joined_df %&gt;% mutate(Total_Spent = <code>Purchase Price Per Unit</code> * Quantity) %&gt;% group_by(<code>Survey ResponseID</code>) %&gt;% summarise(Total_Spent_Per_User = sum(Total_Spent, na.rm = TRUE))</p>
-</section>
-<section id="plot-a-histogram-of-total-spending-per-user" class="level1" data-number="23">
-<h1 data-number="23"><span class="header-section-number">23</span> Plot a histogram of total spending per user</h1>
-<p>ggplot(user_spending, aes(x = Total_Spent_Per_User)) + geom_histogram(binwidth = 1000, fill = “blue”, color = “black”, alpha = 0.7) + labs( title = “Distribution of Total Spending from 2018 to 2023 Per Account”, x = “Total Spending (USD)”, y = “Number of Accounts” ) + theme_minimal()</p>
+<section id="mosiac-pairs-plot-of-gender-purchases-per-week-and-education" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="mosiac-pairs-plot-of-gender-purchases-per-week-and-education"><span class="header-section-number">3.5</span> Mosiac Pairs Plot of Gender, Purchases Per Week, and Education</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcd)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">filter</span>(survey, <span class="st">`</span><span class="at">Q-demos-gender</span><span class="st">`</span> <span class="sc">==</span> <span class="st">'Female'</span> <span class="sc">|</span> <span class="st">`</span><span class="at">Q-demos-gender</span><span class="st">`</span> <span class="sc">==</span> <span class="st">'Male'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">filter</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">!=</span><span class="st">'Prefer not to say'</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">==</span> <span class="st">"Some High School or Less High School"</span> , <span class="st">"&lt; High School"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">==</span> <span class="st">"Bachelor's degree"</span>, <span class="st">"Bachelors"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">==</span> <span class="st">"Graduate or professional degree (MA, MS, MBA, PhD, JD, MD, DDS, etc)"</span>, <span class="st">"Graduate"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">==</span> <span class="st">"Graduate/Professional Degree"</span>, <span class="st">"Graduate"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">==</span> <span class="st">"Some high school or less"</span>, <span class="st">"&lt;High School"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>))</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span><span class="sc">==</span> <span class="st">"High school diploma or GED"</span>, <span class="st">"High School"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-demos-education</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "High School"  "Graduate"     "Bachelors"    "&lt;High School"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span><span class="sc">==</span> <span class="st">"Less than 5 times per month"</span>, <span class="st">"&lt;5 a month"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span><span class="sc">==</span> <span class="st">"5 - 10 times per month"</span>, <span class="st">"5-10 a month"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>survey <span class="ot">=</span> <span class="fu">mutate</span>(survey, <span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span><span class="sc">==</span> <span class="st">"More than 10 times per month"</span>, <span class="st">"&gt;10 a month"</span>, survey<span class="sc">$</span><span class="st">`</span><span class="at">Q-amazon-use-how-oft</span><span class="st">`</span>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>variables <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Q-demos-gender"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Q-amazon-use-how-oft"</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Q-demos-education"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the dataset to include only these variables</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>data_for_mosaic <span class="ot">&lt;-</span> survey <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(variables)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="co"># Remove rows with NA values</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the mosaic plot</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(<span class="fu">table</span>(data_for_mosaic), </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">diag_panel =</span> <span class="fu">pairs_diagonal_mosaic</span>(<span class="at">offset_varnames=</span><span class="sc">-</span><span class="fl">2.5</span>),<span class="at">cex=</span><span class="dv">1</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">upper_panel_args =</span> <span class="fu">list</span>(<span class="at">shade =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">lower_panel_args =</span> <span class="fu">list</span>(<span class="at">shade =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">"Mosaic Pairs Plot of Gender, Purchases Per Week, and Education"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To see if the variables have a strong association we used a mosaic plot. Gender and education levels were strongly associated. However, for our topic we are more interested in the association with how often the user purchases from Amazon a month (shopping frequency). When looking at all three variables together, they were not strongly associated. Then if we just look at gender and how often the user shops on Amazon, there appears to be more of an association compared to education level and shopping frequency.</p>
 
 
 </section>
