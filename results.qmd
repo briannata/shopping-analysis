@@ -85,3 +85,22 @@ ggplot(top_categories, aes(x = Year, y = purchases, fill = Category)) +
   scale_fill_manual(values = palette) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+  
+# Graph 3
+
+# Calculate total spending per user
+user_spending <- joined_df %>%
+  mutate(Total_Spent = `Purchase Price Per Unit` * Quantity) %>%
+  group_by(`Survey ResponseID`) %>%
+  summarise(Total_Spent_Per_User = sum(Total_Spent, na.rm = TRUE))
+
+# Plot a histogram of total spending per user
+ggplot(user_spending, aes(x = Total_Spent_Per_User)) +
+  geom_histogram(binwidth = 1000, fill = "blue", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Total Spending from 2018 to 2023 Per Account",
+    x = "Total Spending (USD)",
+    y = "Number of Accounts"
+  ) +
+  theme_minimal()
