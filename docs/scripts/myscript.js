@@ -29,6 +29,9 @@ function changeData(demographic) {
     if(demographic == "Income") {
         groups = ["Less than $25,000", "$25,000 - $49,999", "$50,000 - $74,999", "$75,000 - $99,999", "$100,000 - $149,999", "$150,000 or more", "Prefer not to say"]
     }
+    else if(demographic == "Race") {
+        groups = ['White or Caucasian', 'Black or African American', 'Asian', 'Other', 'American Indian/Native American or Alaska Native']
+    }
   
     // Scales
     const x0 = d3.scaleBand()
